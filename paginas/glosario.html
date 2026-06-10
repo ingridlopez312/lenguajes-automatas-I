@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Glosario - Lenguajes y Autómatas I</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Glosario de Conceptos</h1>
+        <p>
+            Consulta los conceptos principales de Lenguajes y Autómatas I.
+            Este glosario funciona como apoyo rápido para comprender términos
+            relacionados con lenguajes formales, expresiones regulares, autómatas,
+            compiladores y máquinas de Turing.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Uso del glosario</h2>
+        <p>
+            Escribe una palabra clave en el buscador para encontrar rápidamente
+            conceptos como token, lexema, AFD, AFND, gramática, FIRST, FOLLOW,
+            expresión regular o Máquina de Turing.
+        </p>
+    </section>
+
+    <div class="buscador-contenedor">
+        <input type="text" id="buscadorGlosario" placeholder="🔍 Buscar concepto..." onkeyup="buscarGlosario()">
+    </div>
+
+    <section class="glosario-grid">
+
+        <div class="concepto">
+            <h3>Alfabeto</h3>
+            <p>Conjunto finito y no vacío de símbolos que se utilizan para formar cadenas dentro de un lenguaje formal.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Cadena</h3>
+            <p>Secuencia finita de símbolos pertenecientes a un alfabeto. También puede existir la cadena vacía, representada por ε.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Cadena vacía</h3>
+            <p>Cadena que no contiene símbolos. Se representa con ε y su longitud es igual a cero.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Concatenación</h3>
+            <p>Operación que une dos cadenas para formar una nueva. Por ejemplo, ab + ba = abba.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Lenguaje</h3>
+            <p>Conjunto de cadenas formadas a partir de un alfabeto determinado.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Lenguaje Formal</h3>
+            <p>Lenguaje definido mediante reglas matemáticas o gramaticales precisas.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Lenguaje Regular</h3>
+            <p>Lenguaje que puede ser descrito mediante expresiones regulares y reconocido por autómatas finitos.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Lenguaje Libre de Contexto</h3>
+            <p>Lenguaje generado por una gramática libre de contexto y reconocido por un autómata de pila.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Expresión Regular</h3>
+            <p>Notación formal utilizada para representar patrones de cadenas dentro de los lenguajes regulares.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Cerradura de Kleene</h3>
+            <p>Operador representado por *, que indica cero o más repeticiones de una expresión.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Operador +</h3>
+            <p>Operador que indica una o más repeticiones de una expresión regular.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Operador ?</h3>
+            <p>Operador que indica que un símbolo o expresión puede aparecer cero o una vez.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Autómata Finito</h3>
+            <p>Modelo matemático utilizado para reconocer lenguajes regulares mediante estados y transiciones.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>AFD</h3>
+            <p>Autómata Finito Determinista, donde para cada estado y símbolo existe una sola transición posible.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>AFND</h3>
+            <p>Autómata Finito No Determinista, donde pueden existir varias transiciones para un mismo símbolo.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Estado</h3>
+            <p>Situación o configuración en la que se encuentra un autómata durante el procesamiento de una cadena.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Estado inicial</h3>
+            <p>Estado desde el cual comienza el funcionamiento de un autómata.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Estado final</h3>
+            <p>Estado de aceptación. Si el autómata termina en él, la cadena es aceptada.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Transición</h3>
+            <p>Cambio de un estado a otro dentro de un autómata al leer un símbolo de entrada.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Función de transición</h3>
+            <p>Regla que indica a qué estado debe pasar un autómata según el estado actual y el símbolo leído.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Minimización</h3>
+            <p>Proceso de reducir el número de estados de un autómata sin cambiar el lenguaje que reconoce.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Token</h3>
+            <p>Categoría léxica generada por el analizador léxico, como identificador, número, operador o palabra reservada.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Lexema</h3>
+            <p>Cadena concreta del código fuente que coincide con un patrón y pertenece a un token.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Patrón</h3>
+            <p>Regla que describe la forma que debe tener un lexema para ser reconocido como token.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Analizador Léxico</h3>
+            <p>Primera fase del compilador encargada de leer el código fuente y dividirlo en tokens.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Tabla de símbolos</h3>
+            <p>Estructura de datos donde el compilador almacena información sobre identificadores, variables y funciones.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Error léxico</h3>
+            <p>Error producido cuando aparece un carácter o secuencia que no pertenece al lenguaje definido.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Gramática</h3>
+            <p>Conjunto de reglas que permiten generar cadenas válidas dentro de un lenguaje.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>No terminal</h3>
+            <p>Símbolo de una gramática que puede ser reemplazado por otros símbolos mediante producciones.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Terminal</h3>
+            <p>Símbolo que aparece en la cadena final generada por una gramática.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Producción</h3>
+            <p>Regla de una gramática que indica cómo puede reemplazarse un símbolo no terminal.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Árbol de Derivación</h3>
+            <p>Representación gráfica de cómo una cadena se deriva a partir de una gramática.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Ambigüedad</h3>
+            <p>Propiedad de una gramática cuando una misma cadena puede tener más de un árbol de derivación.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>FIRST</h3>
+            <p>Conjunto de símbolos terminales con los que puede comenzar una producción o derivación.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>FOLLOW</h3>
+            <p>Conjunto de símbolos que pueden aparecer después de un no terminal en una derivación.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Matriz predictiva</h3>
+            <p>Tabla utilizada por analizadores sintácticos para decidir qué producción aplicar.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Análisis Sintáctico</h3>
+            <p>Fase del compilador que verifica si los tokens cumplen con las reglas gramaticales del lenguaje.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Máquina de Turing</h3>
+            <p>Modelo matemático de cómputo capaz de simular cualquier algoritmo mediante cinta, cabezal, estados y transiciones.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Cinta</h3>
+            <p>Memoria de la Máquina de Turing, dividida en celdas donde se leen y escriben símbolos.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Cabezal</h3>
+            <p>Componente de la Máquina de Turing que lee, escribe y se desplaza sobre la cinta.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Problema decidible</h3>
+            <p>Problema para el cual existe un algoritmo que siempre termina y entrega una respuesta correcta.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Problema indecidible</h3>
+            <p>Problema para el cual no existe un algoritmo general que lo resuelva en todos los casos.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Compilador</h3>
+            <p>Programa que traduce un código fuente completo a código objeto o ejecutable.</p>
+        </div>
+
+        <div class="concepto">
+            <h3>Intérprete</h3>
+            <p>Programa que ejecuta instrucciones línea por línea sin generar necesariamente un ejecutable.</p>
+        </div>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="../index.html" class="boton">Regresar al inicio</a>
+        <a href="quiz.html" class="boton-secundario">Ir al Quiz →</a>
+    </div>
+
+</main>
+
+<script src="../js/script.js"></script>
+
+</body>
+</html>

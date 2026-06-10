@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz - Lenguajes y Autómatas I</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Quiz Interactivo</h1>
+        <p>
+            Evalúa tus conocimientos sobre Lenguajes y Autómatas I.
+            Selecciona una respuesta por pregunta y revisa tu resultado final.
+        </p>
+    </section>
+
+    <section class="quiz-contenedor">
+
+        <div class="pregunta">
+            <h3>1. ¿Qué es un alfabeto?</h3>
+            <label><input type="radio" name="p1" value="0"> Un compilador</label>
+            <label><input type="radio" name="p1" value="1"> Un conjunto finito de símbolos</label>
+            <label><input type="radio" name="p1" value="0"> Un lenguaje de programación</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>2. ¿Qué representa una cadena?</h3>
+            <label><input type="radio" name="p2" value="1"> Una secuencia finita de símbolos</label>
+            <label><input type="radio" name="p2" value="0"> Una tabla de tokens</label>
+            <label><input type="radio" name="p2" value="0"> Un árbol sintáctico</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>3. ¿Para qué sirve una expresión regular?</h3>
+            <label><input type="radio" name="p3" value="0"> Para crear bases de datos</label>
+            <label><input type="radio" name="p3" value="1"> Para representar patrones de cadenas</label>
+            <label><input type="radio" name="p3" value="0"> Para diseñar interfaces gráficas</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>4. ¿Qué significa AFD?</h3>
+            <label><input type="radio" name="p4" value="1"> Autómata Finito Determinista</label>
+            <label><input type="radio" name="p4" value="0"> Analizador Formal Digital</label>
+            <label><input type="radio" name="p4" value="0"> Archivo Fuente Dinámico</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>5. ¿Qué genera el analizador léxico?</h3>
+            <label><input type="radio" name="p5" value="0"> Tablas SQL</label>
+            <label><input type="radio" name="p5" value="1"> Tokens</label>
+            <label><input type="radio" name="p5" value="0"> Diagramas UML</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>6. ¿Qué es un lexema?</h3>
+            <label><input type="radio" name="p6" value="1"> Cadena concreta que coincide con un patrón</label>
+            <label><input type="radio" name="p6" value="0"> Una imagen del compilador</label>
+            <label><input type="radio" name="p6" value="0"> Un estado final</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>7. ¿Qué representa un árbol de derivación?</h3>
+            <label><input type="radio" name="p7" value="0"> La memoria RAM</label>
+            <label><input type="radio" name="p7" value="1"> Cómo una cadena se deriva desde una gramática</label>
+            <label><input type="radio" name="p7" value="0"> Una conexión de red</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>8. ¿Para qué se usan FIRST y FOLLOW?</h3>
+            <label><input type="radio" name="p8" value="1"> Para construir analizadores sintácticos predictivos</label>
+            <label><input type="radio" name="p8" value="0"> Para validar contraseñas</label>
+            <label><input type="radio" name="p8" value="0"> Para crear imágenes</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>9. ¿Qué modelo puede simular cualquier algoritmo?</h3>
+            <label><input type="radio" name="p9" value="0"> Un token</label>
+            <label><input type="radio" name="p9" value="1"> Máquina de Turing</label>
+            <label><input type="radio" name="p9" value="0"> Un lexema</label>
+        </div>
+
+        <div class="pregunta">
+            <h3>10. ¿Qué fase revisa la estructura gramatical del código?</h3>
+            <label><input type="radio" name="p10" value="0"> Análisis léxico</label>
+            <label><input type="radio" name="p10" value="1"> Análisis sintáctico</label>
+            <label><input type="radio" name="p10" value="0"> Diseño web</label>
+        </div>
+
+        <button onclick="calificarQuiz()" class="boton">Ver resultado</button>
+
+        <div id="resultadoQuiz" class="resultado-quiz"></div>
+
+    </section>
+
+</main>
+
+<script src="../js/script.js"></script>
+
+</body>
+</html>

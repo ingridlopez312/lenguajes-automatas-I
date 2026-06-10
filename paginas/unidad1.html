@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 1 - Lenguajes Formales</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="paginas/biblioteca.html">Biblioteca</a>
+        
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Unidad 1: Introducción a la Teoría de Lenguajes Formales</h1>
+        <p>
+            En esta unidad se presentan los conceptos fundamentales de la asignatura:
+            alfabetos, cadenas, lenguajes, traductores y fases de un compilador.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Objetivo de la unidad</h2>
+        <p>
+            Comprender los elementos básicos que permiten representar formalmente
+            un lenguaje y reconocer la importancia de los traductores y compiladores
+            dentro del procesamiento de programas.
+        </p>
+    </section>
+
+    <section class="contenedor-temas">
+
+        <article class="tema">
+            <h2>1.1 Alfabeto</h2>
+
+            <p>
+                Un alfabeto es un conjunto finito y no vacío de símbolos. En teoría de
+                lenguajes formales se representa comúnmente con la letra griega
+                <strong>Σ</strong>. Los símbolos de un alfabeto permiten construir cadenas
+                que después pueden formar parte de un lenguaje.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Dato importante:</strong>
+                <p>
+                    El alfabeto no tiene que ser necesariamente de letras; también puede
+                    contener números, operadores, caracteres especiales o símbolos definidos
+                    por un lenguaje de programación.
+                </p>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p><b>Σ = {a, b}</b></p>
+                <p>Con este alfabeto se pueden formar cadenas como: a, b, ab, ba, aabb.</p>
+            </div>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Alfabeto</th>
+                    <th>Cadenas posibles</th>
+                </tr>
+                <tr>
+                    <td>Σ = {0,1}</td>
+                    <td>0, 1, 01, 10, 101</td>
+                </tr>
+                <tr>
+                    <td>Σ = {a,b}</td>
+                    <td>a, b, ab, ba, aabb</td>
+                </tr>
+                <tr>
+                    <td>Σ = {x,y,z}</td>
+                    <td>x, xy, xyz, zzx</td>
+                </tr>
+            </table>
+
+            <div class="actividad">
+                <strong>Actividad:</strong>
+                <p>Escribe 5 cadenas diferentes usando el alfabeto Σ = {0,1}.</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>1.2 Cadenas</h2>
+
+            <p>
+                Una cadena es una secuencia finita de símbolos que pertenecen a un alfabeto.
+                La longitud de una cadena se obtiene contando el número de símbolos que la
+                forman. También existe la cadena vacía, representada por <strong>ε</strong>,
+                la cual no contiene ningún símbolo.
+            </p>
+
+            <div class="codigo">
+                Σ = {0,1}<br>
+                Cadena válida: 1010<br>
+                Longitud de 1010: 4<br>
+                Cadena vacía: ε
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>
+                    Si Σ = {a,b}, entonces la cadena <b>abba</b> es válida porque todos
+                    sus símbolos pertenecen al alfabeto.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>1.3 Lenguajes, tipos y herramientas</h2>
+
+            <p>
+                Un lenguaje es un conjunto de cadenas construidas a partir de un alfabeto.
+                En computación, los lenguajes formales permiten describir reglas de sintaxis,
+                expresiones, instrucciones y estructuras que pueden ser reconocidas por
+                autómatas o procesadas por compiladores.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Alfabeto</div>
+                <span>→</span>
+                <div>Cadenas</div>
+                <span>→</span>
+                <div>Lenguaje</div>
+                <span>→</span>
+                <div>Gramática</div>
+                <span>→</span>
+                <div>Autómata</div>
+            </div>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Tipo de lenguaje</th>
+                    <th>Descripción</th>
+                    <th>Herramienta relacionada</th>
+                </tr>
+                <tr>
+                    <td>Regular</td>
+                    <td>Puede describirse con expresiones regulares.</td>
+                    <td>Autómata finito</td>
+                </tr>
+                <tr>
+                    <td>Libre de contexto</td>
+                    <td>Se utiliza para describir estructuras sintácticas.</td>
+                    <td>Gramática libre de contexto</td>
+                </tr>
+                <tr>
+                    <td>Recursivamente enumerable</td>
+                    <td>Puede ser reconocido por una Máquina de Turing.</td>
+                    <td>Máquina de Turing</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>1.4 Estructura de un traductor</h2>
+
+            <p>
+                Un traductor es un programa que convierte un código escrito en un lenguaje
+                fuente a otro lenguaje destino. Los traductores más conocidos son los
+                compiladores, intérpretes y ensambladores.
+            </p>
+
+            <div class="diagrama-proceso vertical">
+                <div>Código fuente</div>
+                <span>↓</span>
+                <div>Analizador léxico</div>
+                <span>↓</span>
+                <div>Analizador sintáctico</div>
+                <span>↓</span>
+                <div>Analizador semántico</div>
+                <span>↓</span>
+                <div>Código objeto</div>
+            </div>
+
+            <div class="dato-importante">
+                <strong>Diferencia importante:</strong>
+                <p>
+                    Un compilador traduce el programa completo antes de ejecutarlo,
+                    mientras que un intérprete ejecuta el código instrucción por instrucción.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>1.5 Fases de un compilador</h2>
+
+            <p>
+                Un compilador transforma código fuente en código objeto mediante varias
+                fases. Cada fase cumple una función específica para revisar, organizar,
+                traducir y optimizar el programa.
+            </p>
+
+            <div class="linea-tiempo">
+                <div>
+                    <h3>1</h3>
+                    <p>Análisis léxico</p>
+                </div>
+                <div>
+                    <h3>2</h3>
+                    <p>Análisis sintáctico</p>
+                </div>
+                <div>
+                    <h3>3</h3>
+                    <p>Análisis semántico</p>
+                </div>
+                <div>
+                    <h3>4</h3>
+                    <p>Código intermedio</p>
+                </div>
+                <div>
+                    <h3>5</h3>
+                    <p>Optimización</p>
+                </div>
+                <div>
+                    <h3>6</h3>
+                    <p>Código objeto</p>
+                </div>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>
+                    La instrucción <b>int edad = 20;</b> primero se divide en tokens,
+                    después se analiza su estructura gramatical y finalmente se traduce
+                    a una representación que la computadora pueda ejecutar.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>Conclusión de la unidad</h2>
+            <p>
+                Los conceptos de alfabeto, cadena y lenguaje son la base para comprender
+                cómo se definen formalmente los lenguajes de programación. Además, la
+                estructura de los traductores y las fases del compilador permiten entender
+                cómo una computadora procesa el código escrito por una persona.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>Bibliografía recomendada</h2>
+            <p>
+                Hopcroft, J. E., Motwani, R. y Ullman, J. D. Introducción a la Teoría de
+                Autómatas, Lenguajes y Computación.
+            </p>
+            <p>
+                Aho, A. V., Lam, M. S., Sethi, R. y Ullman, J. D. Compilers: Principles,
+                Techniques and Tools.
+            </p>
+        </article>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="../index.html#temario" class="boton">Regresar al temario</a>
+        <a href="unidad2.html" class="boton-secundario">Siguiente unidad →</a>
+    </div>
+
+</main>
+
+</body>
+</html>

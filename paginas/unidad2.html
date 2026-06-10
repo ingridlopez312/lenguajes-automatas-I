@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 2 - Expresiones Regulares</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="paginas/biblioteca.html">Biblioteca</a>
+        
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Unidad 2: Expresiones Regulares</h1>
+        <p>
+            En esta unidad se estudian las expresiones regulares como una herramienta formal
+            para describir patrones de cadenas dentro de los lenguajes regulares. También se
+            analizan sus operadores, construcción, aplicaciones y uso en validaciones reales.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Objetivo de la unidad</h2>
+        <p>
+            Comprender la definición formal de una expresión regular, identificar sus operadores
+            principales y aplicar su uso en la validación de datos como correos electrónicos,
+            teléfonos, CURP, RFC y contraseñas.
+        </p>
+    </section>
+
+    <section class="contenedor-temas">
+
+        <article class="tema">
+            <h2>2.1 Definición formal de una Expresión Regular</h2>
+            <img src="../img/automata-regex.jpg" alt="Relación entre Expresiones Regulares y Autómatas" class="imagen-tema">
+
+            <p>
+                Una expresión regular, también conocida como <strong>ER</strong> o
+                <strong>Regex</strong>, es una notación formal que permite describir conjuntos
+                de cadenas mediante patrones. En la teoría de lenguajes formales, las expresiones
+                regulares son fundamentales porque representan lenguajes regulares, los cuales
+                pueden ser reconocidos por autómatas finitos.
+            </p>
+
+            <p>
+                Una expresión regular no describe una sola cadena, sino un conjunto completo de
+                cadenas que cumplen una misma regla. Por ejemplo, una expresión puede representar
+                todas las cadenas formadas únicamente por los símbolos <strong>a</strong> y
+                <strong>b</strong>, o todos los correos electrónicos que tienen una estructura
+                válida.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Dato importante:</strong>
+                <p>
+                    Toda expresión regular puede convertirse en un autómata finito, y todo
+                    autómata finito puede representarse mediante una expresión regular.
+                    Esta relación es muy importante dentro de la teoría de lenguajes formales.
+                </p>
+            </div>
+
+            <div class="codigo">
+                a*      → cero o más repeticiones de a<br>
+                ab      → la cadena formada por a seguida de b<br>
+                a|b     → puede ser a o puede ser b<br>
+                (a|b)*  → cualquier combinación de a y b<br>
+                [0-9]+  → uno o más dígitos numéricos
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>
+                    La expresión <b>(a|b)*</b> representa todas las cadenas posibles formadas
+                    con los símbolos a y b, incluyendo la cadena vacía.
+                </p>
+                <p>
+                    Cadenas válidas: ε, a, b, ab, ba, aabb, ababab.
+                </p>
+                <p>
+                    Cadenas no válidas: c, ac, abc, 123.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>2.2 Operadores básicos de las Expresiones Regulares</h2>
+
+            <p>
+                Las expresiones regulares utilizan operadores que permiten construir patrones.
+                Estos operadores indican repetición, selección, agrupación o rangos de caracteres.
+                Comprenderlos es esencial para diseñar expresiones correctas.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Operador</th>
+                    <th>Nombre</th>
+                    <th>Significado</th>
+                    <th>Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>*</td>
+                    <td>Cerradura de Kleene</td>
+                    <td>Cero o más repeticiones</td>
+                    <td>a* acepta ε, a, aa, aaa</td>
+                </tr>
+                <tr>
+                    <td>+</td>
+                    <td>Uno o más</td>
+                    <td>Una o más repeticiones</td>
+                    <td>a+ acepta a, aa, aaa</td>
+                </tr>
+                <tr>
+                    <td>?</td>
+                    <td>Opcional</td>
+                    <td>Cero o una aparición</td>
+                    <td>a? acepta ε o a</td>
+                </tr>
+                <tr>
+                    <td>|</td>
+                    <td>Alternativa</td>
+                    <td>Una opción u otra</td>
+                    <td>a|b acepta a o b</td>
+                </tr>
+                <tr>
+                    <td>()</td>
+                    <td>Agrupación</td>
+                    <td>Agrupa expresiones</td>
+                    <td>(ab)* acepta ε, ab, abab</td>
+                </tr>
+                <tr>
+                    <td>[]</td>
+                    <td>Clase de caracteres</td>
+                    <td>Permite elegir un carácter de un conjunto</td>
+                    <td>[abc] acepta a, b o c</td>
+                </tr>
+                <tr>
+                    <td>{}</td>
+                    <td>Cuantificador</td>
+                    <td>Indica número exacto o rango de repeticiones</td>
+                    <td>[0-9]{10}</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>2.3 Construcción de Expresiones Regulares</h2>
+
+            <p>
+                Para diseñar una expresión regular se debe analizar primero qué estructura debe
+                cumplir la cadena. Después se identifican los caracteres permitidos, la cantidad
+                de repeticiones, los símbolos obligatorios y los elementos opcionales.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Identificar patrón</div>
+                <span>→</span>
+                <div>Definir caracteres</div>
+                <span>→</span>
+                <div>Agregar operadores</div>
+                <span>→</span>
+                <div>Probar cadenas</div>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejemplo: validar teléfono de 10 dígitos</strong>
+                <p>Expresión regular:</p>
+                <p><b>^[0-9]{10}$</b></p>
+                <p>
+                    Esta expresión indica que la cadena debe iniciar y terminar con exactamente
+                    10 dígitos numéricos.
+                </p>
+            </div>
+
+            <div class="codigo">
+                ^      → inicio de cadena<br>
+                [0-9]  → cualquier dígito del 0 al 9<br>
+                {10}   → exactamente 10 repeticiones<br>
+                $      → fin de cadena
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>2.4 Ejemplos reales de Expresiones Regulares</h2>
+
+            <p>
+                Las expresiones regulares se utilizan en problemas reales donde es necesario
+                validar que la información ingresada por un usuario tenga el formato correcto.
+                Esto ayuda a evitar errores, mejorar la seguridad y facilitar el procesamiento
+                automático de datos.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Dato</th>
+                    <th>Expresión regular</th>
+                    <th>Ejemplo válido</th>
+                </tr>
+                <tr>
+                    <td>Correo</td>
+                    <td>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</td>
+                    <td>usuario@gmail.com</td>
+                </tr>
+                <tr>
+                    <td>Teléfono</td>
+                    <td>^[0-9]{10}$</td>
+                    <td>5512345678</td>
+                </tr>
+                <tr>
+                    <td>CURP</td>
+                    <td>^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[A-Z0-9]{2}$</td>
+                    <td>LOVI010203MDFABC09</td>
+                </tr>
+                <tr>
+                    <td>RFC</td>
+                    <td>^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$</td>
+                    <td>LOVI010203AB1</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>2.5 Aplicaciones en problemas reales</h2>
+            <img src="../img/regex-web.jpg" alt="Aplicaciones de Expresiones Regulares" class="imagen-tema">
+
+            <p>
+                Las expresiones regulares tienen una gran importancia en la informática porque
+                permiten automatizar la búsqueda, validación y clasificación de información.
+                En el desarrollo web se utilizan en formularios para verificar correos,
+                contraseñas y números telefónicos. En los compiladores se emplean para reconocer
+                tokens durante el análisis léxico.
+            </p>
+
+            <p>
+                También se utilizan en editores de texto, sistemas de seguridad, motores de
+                búsqueda, bases de datos, procesamiento de archivos y limpieza de información.
+                Por ejemplo, un sistema puede usar una expresión regular para detectar todos
+                los correos dentro de un documento o para validar que un usuario escriba una
+                contraseña segura.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Entrada del usuario</div>
+                <span>→</span>
+                <div>Expresión regular</div>
+                <span>→</span>
+                <div>Validación</div>
+                <span>→</span>
+                <div>Resultado</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>2.6 Relación con los Autómatas Finitos</h2>
+
+            <p>
+                Las expresiones regulares están directamente relacionadas con los autómatas
+                finitos. Un autómata finito puede reconocer el mismo lenguaje que describe
+                una expresión regular. Esto significa que ambos modelos son equivalentes
+                para representar lenguajes regulares.
+            </p>
+
+            <p>
+                En la práctica, una expresión regular puede convertirse en un autómata finito
+                no determinista y posteriormente en un autómata finito determinista. Este
+                procedimiento es muy importante en el diseño de analizadores léxicos dentro
+                de compiladores.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Expresión Regular</div>
+                <span>→</span>
+                <div>AFND</div>
+                <span>→</span>
+                <div>AFD</div>
+                <span>→</span>
+                <div>Reconocimiento</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>2.7 Validadores interactivos</h2>
+
+            <p>
+                En esta sección puedes probar algunas expresiones regulares aplicadas a
+                datos reales. Cada validador revisa si la información cumple con el patrón
+                correspondiente.
+            </p>
+
+            <div class="validador">
+                <h3>Validador de correo electrónico</h3>
+                <input type="text" id="correo" placeholder="Ejemplo: usuario@gmail.com">
+                <button onclick="validarCorreo()">Validar correo</button>
+                <p id="resultadoCorreo"></p>
+            </div>
+
+            <div class="validador">
+                <h3>Validador de teléfono</h3>
+                <input type="text" id="telefono" placeholder="Ejemplo: 5512345678">
+                <button onclick="validarTelefono()">Validar teléfono</button>
+                <p id="resultadoTelefono"></p>
+            </div>
+
+            <div class="validador">
+                <h3>Validador de CURP</h3>
+                <input type="text" id="curp" placeholder="Ejemplo: LOVI010203MDFABC09">
+                <button onclick="validarCURP()">Validar CURP</button>
+                <p id="resultadoCURP"></p>
+            </div>
+
+            <div class="validador">
+                <h3>Validador de RFC</h3>
+                <input type="text" id="rfc" placeholder="Ejemplo: LOVI010203AB1">
+                <button onclick="validarRFC()">Validar RFC</button>
+                <p id="resultadoRFC"></p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>2.8 Ejercicios resueltos</h2>
+
+            <div class="ejemplo">
+                <strong>Ejercicio 1:</strong>
+                <p>Diseñar una ER para cadenas formadas por a y b que terminen en b.</p>
+                <p><b>Respuesta:</b> (a|b)*b</p>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejercicio 2:</strong>
+                <p>Diseñar una ER para números de exactamente 4 dígitos.</p>
+                <p><b>Respuesta:</b> [0-9]{4}</p>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejercicio 3:</strong>
+                <p>Diseñar una ER para palabras que inicien con mayúscula.</p>
+                <p><b>Respuesta:</b> [A-Z][a-z]+</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>2.9 Actividades</h2>
+
+            <div class="actividad">
+                <strong>Actividad 1:</strong>
+                <p>Escribe una expresión regular que acepte cadenas que inicien con a y terminen con b.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 2:</strong>
+                <p>Diseña una expresión regular para validar una contraseña de al menos 8 caracteres.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 3:</strong>
+                <p>Investiga cómo se usan las expresiones regulares en los formularios web.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 4:</strong>
+                <p>Explica la relación entre una expresión regular y un autómata finito.</p>
+            </div>
+        </article>
+
+        <article class="tema">
+
+    <h2>2.10 Ventajas y Desventajas de las Expresiones Regulares</h2>
+
+    <p>
+        Las expresiones regulares son herramientas extremadamente útiles dentro de
+        la informática moderna. Permiten describir patrones de cadenas de manera
+        compacta y eficiente, facilitando tareas de validación, búsqueda y análisis
+        de información. Sin embargo, también presentan ciertas limitaciones cuando
+        los patrones se vuelven demasiado complejos.
+    </p>
+
+    <table class="tabla-token">
+
+        <tr>
+            <th>Ventajas</th>
+            <th>Desventajas</th>
+        </tr>
+
+        <tr>
+            <td>Validación rápida de información.</td>
+            <td>Pueden resultar difíciles de interpretar.</td>
+        </tr>
+
+        <tr>
+            <td>Amplio uso en aplicaciones web.</td>
+            <td>Los patrones complejos son difíciles de mantener.</td>
+        </tr>
+
+        <tr>
+            <td>Ayudan a automatizar procesos.</td>
+            <td>Errores pequeños generan resultados incorrectos.</td>
+        </tr>
+
+        <tr>
+            <td>Utilizadas en compiladores y buscadores.</td>
+            <td>No son ideales para estructuras muy complejas.</td>
+        </tr>
+
+    </table>
+
+    <div class="dato-importante">
+
+        <strong>¿Sabías que?</strong>
+
+        <p>
+            Google, Linux, Visual Studio Code, bases de datos y la mayoría
+            de los compiladores utilizan expresiones regulares diariamente
+            para localizar información, validar datos y reconocer patrones.
+        </p>
+
+    </div>
+
+</article>
+
+<article class="tema">
+
+    <h2>2.11 Relación entre Expresiones Regulares y Autómatas Finitos</h2>
+
+    <p>
+        Uno de los conceptos más importantes de esta unidad es la equivalencia
+        entre las expresiones regulares y los autómatas finitos.
+    </p>
+
+    <p>
+        Toda expresión regular puede transformarse en un Autómata Finito No
+        Determinista (AFND), y posteriormente convertirse en un Autómata Finito
+        Determinista (AFD).
+    </p>
+
+    <p>
+        De igual manera, todo lenguaje reconocido por un autómata finito puede
+        representarse mediante una expresión regular equivalente.
+    </p>
+
+    <div class="diagrama-proceso">
+
+        <div>Expresión Regular</div>
+
+        <span>→</span>
+
+        <div>AFND</div>
+
+        <span>→</span>
+
+        <div>AFD</div>
+
+        <span>→</span>
+
+        <div>Lenguaje Reconocido</div>
+
+    </div>
+
+</article>
+
+<article class="tema">
+
+    <h2>2.12 Caso de Estudio: Validación de Usuarios en un Sitio Web</h2>
+
+    <p>
+        Supongamos que un usuario desea registrarse en una página web.
+        El sistema necesita verificar que los datos ingresados tengan el
+        formato correcto antes de almacenarlos en la base de datos.
+    </p>
+
+    <p>
+        Para ello se utilizan expresiones regulares que validan:
+    </p>
+
+    <ul>
+        <li>Correos electrónicos.</li>
+        <li>Números telefónicos.</li>
+        <li>Contraseñas.</li>
+        <li>CURP.</li>
+        <li>RFC.</li>
+    </ul>
+
+    <div class="diagrama-proceso">
+
+        <div>Usuario</div>
+
+        <span>→</span>
+
+        <div>Formulario</div>
+
+        <span>→</span>
+
+        <div>Regex</div>
+
+        <span>→</span>
+
+        <div>Validación</div>
+
+        <span>→</span>
+
+        <div>Base de Datos</div>
+
+    </div>
+
+</article>
+
+<article class="tema">
+
+    <h2>Curiosidades sobre las Expresiones Regulares</h2>
+    <img src="../img/kleene.jpg" alt="Stephen Kleene" class="imagen-tema">
+
+    <div class="dato-importante">
+
+        <p>
+            Las expresiones regulares fueron propuestas formalmente por
+            Stephen Kleene en la década de 1950 como parte de sus estudios
+            sobre autómatas y lenguajes formales.
+        </p>
+
+        <p>
+            Actualmente se utilizan en prácticamente todos los lenguajes
+            de programación modernos como Java, Python, C#, JavaScript,
+            PHP y Ruby.
+        </p>
+
+        <p>
+            También son utilizadas en motores de búsqueda, sistemas
+            operativos, compiladores, redes y herramientas de análisis
+            de datos.
+        </p>
+
+    </div>
+
+</article>
+
+<article class="tema">
+
+    <h2>Relación con la Jerarquía de Chomsky</h2>
+    <img src="../img/chomsky.jpg" alt="Jerarquía de Chomsky" class="imagen-tema">
+
+    <p>
+        Las expresiones regulares forman parte de los lenguajes regulares,
+        los cuales corresponden al Tipo 3 dentro de la Jerarquía de Chomsky.
+        Esta clasificación organiza los lenguajes formales según su complejidad
+        y la capacidad de los modelos computacionales necesarios para reconocerlos.
+    </p>
+
+    <p>
+        La Jerarquía de Chomsky fue propuesta por el lingüista y científico
+        Noam Chomsky en 1956 y constituye una de las bases teóricas más importantes
+        de la computación y los lenguajes formales.
+    </p>
+
+    <table class="tabla-token">
+
+        <tr>
+            <th>Tipo</th>
+            <th>Lenguaje</th>
+            <th>Reconocedor</th>
+        </tr>
+
+        <tr>
+            <td>Tipo 3</td>
+            <td>Regular</td>
+            <td>Autómata Finito</td>
+        </tr>
+
+        <tr>
+            <td>Tipo 2</td>
+            <td>Libre de Contexto</td>
+            <td>Autómata de Pila</td>
+        </tr>
+
+        <tr>
+            <td>Tipo 1</td>
+            <td>Sensible al Contexto</td>
+            <td>Autómata Linealmente Acotado</td>
+        </tr>
+
+        <tr>
+            <td>Tipo 0</td>
+            <td>Recursivamente Enumerable</td>
+            <td>Máquina de Turing</td>
+        </tr>
+
+    </table>
+
+    <div class="dato-importante">
+        <strong>Importancia:</strong>
+
+        <p>
+            Las expresiones regulares y los autómatas finitos pertenecen al nivel
+            más básico de la jerarquía, pero son fundamentales para el diseño de
+            compiladores, analizadores léxicos y sistemas de validación.
+        </p>
+    </div>
+
+</article>
+
+        <article class="tema">
+            <h2>Conclusión de la unidad</h2>
+
+            <p>
+                Las expresiones regulares son una herramienta esencial dentro de la teoría de
+                lenguajes formales y la informática aplicada. Permiten describir lenguajes
+                regulares de forma compacta, validar información y construir analizadores
+                léxicos. Su relación con los autómatas finitos demuestra su importancia tanto
+                teórica como práctica.
+            </p>
+
+            <p>
+                Comprender las expresiones regulares facilita el estudio de los autómatas,
+                el análisis léxico y el diseño de compiladores. Además, su uso en problemas
+                reales como validación de correos, teléfonos, CURP y RFC demuestra que no solo
+                son un concepto matemático, sino una herramienta cotidiana en el desarrollo de
+                software.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>Bibliografía recomendada</h2>
+            <p>
+                Hopcroft, J. E., Motwani, R. y Ullman, J. D. Introducción a la Teoría de
+                Autómatas, Lenguajes y Computación.
+            </p>
+            <p>
+                Aho, A. V., Lam, M. S., Sethi, R. y Ullman, J. D. Compilers: Principles,
+                Techniques and Tools.
+            </p>
+        </article>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="unidad1.html" class="boton-secundario">← Unidad anterior</a>
+        <a href="../index.html#temario" class="boton">Regresar al temario</a>
+        <a href="unidad3.html" class="boton-secundario">Siguiente unidad →</a>
+    </div>
+
+</main>
+
+<script src="../js/script.js"></script>
+
+</body>
+</html>

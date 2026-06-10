@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 4 - Análisis Léxico</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="paginas/biblioteca.html">Biblioteca</a>
+        
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Unidad 4: Análisis Léxico</h1>
+        <p>
+            En esta unidad se estudia la primera fase de un compilador: el análisis léxico.
+            Se explican los conceptos de token, lexema, patrón, tabla de símbolos,
+            errores léxicos y el proceso mediante el cual el código fuente se convierte
+            en una secuencia de tokens.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Objetivo de la unidad</h2>
+        <p>
+            Comprender el funcionamiento del analizador léxico dentro de un compilador,
+            identificando cómo se reconocen tokens, lexemas y patrones a partir de un
+            código fuente, así como la importancia de detectar errores léxicos.
+        </p>
+    </section>
+
+    <section class="contenedor-temas">
+
+        <article class="tema">
+            <h2>4.1 ¿Qué es el análisis léxico?</h2>
+
+            <p>
+                El análisis léxico es la primera fase de un compilador. Su función principal
+                es leer el código fuente carácter por carácter y agrupar esos caracteres en
+                unidades significativas llamadas tokens.
+            </p>
+
+            <p>
+                Esta fase actúa como un filtro inicial. Elimina espacios innecesarios,
+                saltos de línea y comentarios, mientras identifica elementos importantes
+                del lenguaje como palabras reservadas, identificadores, operadores, números
+                y signos de puntuación.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Código fuente</div>
+                <span>→</span>
+                <div>Analizador léxico</div>
+                <span>→</span>
+                <div>Tokens</div>
+                <span>→</span>
+                <div>Analizador sintáctico</div>
+            </div>
+
+            <div class="dato-importante">
+                <strong>Dato importante:</strong>
+                <p>
+                    El analizador léxico no revisa si una instrucción está bien estructurada
+                    gramaticalmente; esa tarea corresponde al análisis sintáctico.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>4.2 Token, lexema y patrón</h2>
+
+            <p>
+                Para comprender el análisis léxico es necesario diferenciar tres conceptos:
+                token, lexema y patrón. Estos elementos permiten clasificar el contenido del
+                código fuente.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Concepto</th>
+                    <th>Definición</th>
+                    <th>Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Token</td>
+                    <td>Categoría o tipo de unidad léxica.</td>
+                    <td>IDENTIFICADOR</td>
+                </tr>
+                <tr>
+                    <td>Lexema</td>
+                    <td>Texto real encontrado en el código.</td>
+                    <td>edad</td>
+                </tr>
+                <tr>
+                    <td>Patrón</td>
+                    <td>Regla que describe la forma válida de un lexema.</td>
+                    <td>[a-zA-Z_][a-zA-Z0-9_]*</td>
+                </tr>
+            </table>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p><b>int edad = 20;</b></p>
+                <p>int → PALABRA_RESERVADA</p>
+                <p>edad → IDENTIFICADOR</p>
+                <p>= → OPERADOR_ASIGNACION</p>
+                <p>20 → NUMERO_ENTERO</p>
+                <p>; → PUNTO_Y_COMA</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>4.3 Clasificación de tokens</h2>
+
+            <p>
+                Los tokens permiten clasificar las partes del código fuente. Cada lenguaje
+                de programación define sus propios tokens de acuerdo con su sintaxis.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Tipo de token</th>
+                    <th>Descripción</th>
+                    <th>Ejemplos</th>
+                </tr>
+                <tr>
+                    <td>Palabra reservada</td>
+                    <td>Palabras propias del lenguaje.</td>
+                    <td>int, if, while, return</td>
+                </tr>
+                <tr>
+                    <td>Identificador</td>
+                    <td>Nombres definidos por el programador.</td>
+                    <td>edad, suma, contador</td>
+                </tr>
+                <tr>
+                    <td>Número</td>
+                    <td>Valores numéricos.</td>
+                    <td>10, 20, 3.14</td>
+                </tr>
+                <tr>
+                    <td>Operador</td>
+                    <td>Símbolos que realizan operaciones.</td>
+                    <td>+, -, *, /, =</td>
+                </tr>
+                <tr>
+                    <td>Separador</td>
+                    <td>Símbolos que delimitan instrucciones.</td>
+                    <td>;, (, ), {, }</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>4.4 Relación con expresiones regulares</h2>
+
+            <p>
+                Los patrones léxicos suelen definirse mediante expresiones regulares.
+                Por ejemplo, un identificador puede definirse como una letra seguida de
+                letras o números. De esta manera, las expresiones regulares ayudan al
+                analizador léxico a reconocer cadenas válidas.
+            </p>
+
+            <div class="codigo">
+                Identificador: [a-zA-Z_][a-zA-Z0-9_]*<br>
+                Número entero: [0-9]+<br>
+                Número decimal: [0-9]+\\.[0-9]+<br>
+                Operador: \\+ | \\- | \\* | / | =
+            </div>
+
+            <div class="diagrama-proceso">
+                <div>Expresiones regulares</div>
+                <span>→</span>
+                <div>Patrones</div>
+                <span>→</span>
+                <div>Lexemas</div>
+                <span>→</span>
+                <div>Tokens</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>4.5 Proceso del analizador léxico</h2>
+
+            <p>
+                El analizador léxico realiza un proceso sistemático para transformar el
+                código fuente en tokens. Este proceso puede dividirse en varios pasos.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Paso</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>1. Lectura</td>
+                    <td>Lee el código fuente carácter por carácter.</td>
+                </tr>
+                <tr>
+                    <td>2. Agrupación</td>
+                    <td>Agrupa caracteres para formar lexemas.</td>
+                </tr>
+                <tr>
+                    <td>3. Comparación</td>
+                    <td>Compara lexemas con patrones definidos.</td>
+                </tr>
+                <tr>
+                    <td>4. Clasificación</td>
+                    <td>Asigna un token a cada lexema.</td>
+                </tr>
+                <tr>
+                    <td>5. Envío</td>
+                    <td>Envía los tokens al analizador sintáctico.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>4.6 Tabla de símbolos</h2>
+
+            <p>
+                La tabla de símbolos es una estructura de datos utilizada por el compilador
+                para almacenar información sobre identificadores, variables, funciones,
+                constantes y otros elementos del programa.
+            </p>
+
+            <p>
+                Aunque comienza a utilizarse desde el análisis léxico, también es importante
+                en fases posteriores como el análisis semántico y la generación de código.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Identificador</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Ámbito</th>
+                </tr>
+                <tr>
+                    <td>edad</td>
+                    <td>int</td>
+                    <td>20</td>
+                    <td>global</td>
+                </tr>
+                <tr>
+                    <td>promedio</td>
+                    <td>float</td>
+                    <td>9.5</td>
+                    <td>local</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>4.7 Errores léxicos</h2>
+
+            <p>
+                Un error léxico ocurre cuando el analizador encuentra un símbolo o secuencia
+                que no pertenece al lenguaje. Estos errores suelen aparecer por caracteres
+                inválidos, identificadores mal formados, números incorrectos o símbolos no
+                reconocidos.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Error</th>
+                    <th>Ejemplo</th>
+                    <th>Explicación</th>
+                </tr>
+                <tr>
+                    <td>Carácter inválido</td>
+                    <td>@edad</td>
+                    <td>El símbolo @ no está permitido al inicio.</td>
+                </tr>
+                <tr>
+                    <td>Número mal formado</td>
+                    <td>12.3.4</td>
+                    <td>Contiene más de un punto decimal.</td>
+                </tr>
+                <tr>
+                    <td>Identificador inválido</td>
+                    <td>2nombre</td>
+                    <td>No puede iniciar con número.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>4.8 Caso práctico completo</h2>
+
+            <p>
+                Analicemos el siguiente fragmento de código:
+            </p>
+
+            <div class="codigo">
+                int edad = 20;<br>
+                float promedio = 9.5;
+            </div>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Lexema</th>
+                    <th>Token</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>int</td>
+                    <td>PALABRA_RESERVADA</td>
+                    <td>Define una variable entera.</td>
+                </tr>
+                <tr>
+                    <td>edad</td>
+                    <td>IDENTIFICADOR</td>
+                    <td>Nombre de variable.</td>
+                </tr>
+                <tr>
+                    <td>=</td>
+                    <td>OPERADOR_ASIGNACION</td>
+                    <td>Asigna un valor.</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>NUMERO_ENTERO</td>
+                    <td>Valor numérico entero.</td>
+                </tr>
+                <tr>
+                    <td>float</td>
+                    <td>PALABRA_RESERVADA</td>
+                    <td>Define una variable decimal.</td>
+                </tr>
+                <tr>
+                    <td>promedio</td>
+                    <td>IDENTIFICADOR</td>
+                    <td>Nombre de variable.</td>
+                </tr>
+                <tr>
+                    <td>9.5</td>
+                    <td>NUMERO_DECIMAL</td>
+                    <td>Valor numérico decimal.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>4.9 Mini analizador léxico interactivo</h2>
+
+            <p>
+                Escribe una instrucción sencilla y presiona el botón para identificar
+                sus tokens. Este simulador reconoce palabras reservadas, identificadores,
+                números, operadores y signos de puntuación.
+            </p>
+
+            <div class="validador">
+                <input type="text" id="codigoLexico" value="int edad = 20;">
+                <button onclick="analizarLexico()">Analizar código</button>
+                <div id="resultadoLexico" class="resultado-lexico"></div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>4.10 Aplicaciones del análisis léxico</h2>
+
+            <p>
+                El análisis léxico tiene aplicaciones importantes en compiladores,
+                intérpretes, editores de código, IDEs, validadores de sintaxis y
+                herramientas de análisis de software.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Aplicación</th>
+                    <th>Uso</th>
+                </tr>
+                <tr>
+                    <td>Compiladores</td>
+                    <td>Identifican tokens antes del análisis sintáctico.</td>
+                </tr>
+                <tr>
+                    <td>IDEs</td>
+                    <td>Resaltan palabras reservadas y errores.</td>
+                </tr>
+                <tr>
+                    <td>Intérpretes</td>
+                    <td>Procesan instrucciones durante la ejecución.</td>
+                </tr>
+                <tr>
+                    <td>Analizadores de código</td>
+                    <td>Detectan errores o patrones incorrectos.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>4.11 Actividades de aprendizaje</h2>
+
+            <div class="actividad">
+                <strong>Actividad 1:</strong>
+                <p>Identifica los tokens de la instrucción: <b>int suma = a + b;</b></p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 2:</strong>
+                <p>Escribe tres ejemplos de lexemas y clasifícalos según su token.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 3:</strong>
+                <p>Investiga qué es una tabla de símbolos y para qué sirve.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 4:</strong>
+                <p>Explica la diferencia entre token, lexema y patrón.</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>Conclusión de la unidad</h2>
+
+            <p>
+                El análisis léxico es una fase fundamental dentro del proceso de compilación,
+                ya que transforma el código fuente en una secuencia organizada de tokens.
+                Gracias a esta etapa, el compilador puede interpretar el código de manera
+                estructurada y enviarlo a las fases posteriores.
+            </p>
+
+            <p>
+                Los conceptos de token, lexema y patrón son esenciales para comprender cómo
+                los lenguajes de programación son procesados internamente. Además, el uso
+                de expresiones regulares y autómatas finitos permite construir analizadores
+                léxicos eficientes y precisos.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>Bibliografía recomendada</h2>
+            <p>
+                Aho, A. V., Lam, M. S., Sethi, R. y Ullman, J. D. Compilers: Principles,
+                Techniques and Tools.
+            </p>
+            <p>
+                Hopcroft, J. E., Motwani, R. y Ullman, J. D. Introducción a la Teoría de
+                Autómatas, Lenguajes y Computación.
+            </p>
+        </article>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="unidad3.html" class="boton-secundario">← Unidad anterior</a>
+        <a href="../index.html#temario" class="boton">Regresar al temario</a>
+        <a href="unidad5.html" class="boton-secundario">Siguiente unidad →</a>
+    </div>
+
+</main>
+
+<script src="../js/script.js"></script>
+
+</body>
+</html>

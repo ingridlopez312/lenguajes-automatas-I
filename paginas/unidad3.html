@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 3 - Autómatas Finitos</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="paginas/biblioteca.html">Biblioteca</a>
+        
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Unidad 3: Autómatas Finitos</h1>
+        <p>
+            En esta unidad se estudian los autómatas finitos como modelos matemáticos
+            capaces de reconocer lenguajes regulares. Se analizan sus componentes,
+            clasificación, representación, conversión de AFND a AFD, relación con
+            expresiones regulares, minimización de estados y aplicaciones reales.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Objetivo de la unidad</h2>
+        <p>
+            Comprender la estructura y funcionamiento de los autómatas finitos,
+            identificando sus elementos formales, sus tipos principales y su utilidad
+            en el reconocimiento de patrones, validación de cadenas y diseño de
+            analizadores léxicos.
+        </p>
+    </section>
+
+    <section class="contenedor-temas">
+
+        <article class="tema">
+            <h2>3.1 Concepto de Autómata Finito</h2>
+
+            <p>
+                Un autómata finito es un modelo matemático utilizado para representar
+                sistemas que cambian de estado dependiendo de una entrada. En la teoría
+                de lenguajes formales, los autómatas finitos se utilizan para reconocer
+                lenguajes regulares.
+            </p>
+
+            <p>
+                Se les llama “finitos” porque cuentan con un número limitado de estados.
+                Cada estado representa una situación posible dentro del proceso de
+                reconocimiento de una cadena. A medida que el autómata lee símbolos de
+                entrada, cambia de estado de acuerdo con una función de transición.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Dato importante:</strong>
+                <p>
+                    Los autómatas finitos son fundamentales para entender cómo un
+                    compilador reconoce tokens, palabras reservadas, identificadores
+                    y operadores durante la fase de análisis léxico.
+                </p>
+            </div>
+
+            <div class="codigo">
+                M = (Q, Σ, δ, q0, F)<br><br>
+                Q = conjunto finito de estados<br>
+                Σ = alfabeto de entrada<br>
+                δ = función de transición<br>
+                q0 = estado inicial<br>
+                F = conjunto de estados finales o de aceptación
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.2 Componentes de un Autómata Finito</h2>
+
+            <p>
+                Todo autómata finito está compuesto por elementos que permiten describir
+                formalmente su comportamiento. Estos elementos definen los estados que
+                puede tomar, los símbolos que puede leer, la forma en que cambia de estado
+                y las condiciones para aceptar una cadena.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Q</td>
+                    <td>Conjunto de estados posibles.</td>
+                    <td>{q0, q1}</td>
+                </tr>
+                <tr>
+                    <td>Σ</td>
+                    <td>Alfabeto de entrada.</td>
+                    <td>{a, b}</td>
+                </tr>
+                <tr>
+                    <td>δ</td>
+                    <td>Función de transición.</td>
+                    <td>δ(q0, a) = q1</td>
+                </tr>
+                <tr>
+                    <td>q0</td>
+                    <td>Estado inicial.</td>
+                    <td>q0</td>
+                </tr>
+                <tr>
+                    <td>F</td>
+                    <td>Estados finales o de aceptación.</td>
+                    <td>{q1}</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>3.3 Funcionamiento de un Autómata</h2>
+
+            <p>
+                El funcionamiento de un autómata finito consiste en leer una cadena símbolo
+                por símbolo. Inicia en el estado inicial y, dependiendo del símbolo leído,
+                cambia de estado según la función de transición.
+            </p>
+
+            <p>
+                Cuando la cadena termina, el autómata verifica si se encuentra en un estado
+                final. Si el estado actual pertenece al conjunto de estados finales, la
+                cadena es aceptada; de lo contrario, es rechazada.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Cadena de entrada</div>
+                <span>→</span>
+                <div>Estado inicial</div>
+                <span>→</span>
+                <div>Transiciones</div>
+                <span>→</span>
+                <div>Estado final</div>
+                <span>→</span>
+                <div>Acepta/Rechaza</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.4 Ejemplo visual de Autómata Finito</h2>
+
+            <p>
+                El siguiente ejemplo representa un autómata que acepta cadenas que terminan
+                con la letra <strong>b</strong>. Si la cadena termina en b, el autómata queda
+                en un estado final y por lo tanto acepta la cadena.
+            </p>
+
+            <div class="diagrama automata">
+                <span class="estado">q0</span>
+                <span class="flecha">── b ──▶</span>
+                <span class="estado final">q1</span>
+                <br><br>
+                <span>q0 -- a --> q0</span><br>
+                <span>q0 -- b --> q1</span><br>
+                <span>q1 -- a --> q0</span><br>
+                <span>q1 -- b --> q1</span>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Cadenas aceptadas:</strong>
+                <p>b, ab, aab, abb, bab, aaab</p>
+                <strong>Cadenas rechazadas:</strong>
+                <p>a, ba, aba, aaa</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.5 Clasificación: AFD y AFND</h2>
+
+            <p>
+                Los autómatas finitos se clasifican principalmente en Autómatas Finitos
+                Deterministas (AFD) y Autómatas Finitos No Deterministas (AFND).
+                Ambos reconocen lenguajes regulares, pero se diferencian en la forma
+                en que manejan sus transiciones.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Característica</th>
+                    <th>AFD</th>
+                    <th>AFND</th>
+                </tr>
+                <tr>
+                    <td>Transiciones</td>
+                    <td>Una sola transición por símbolo.</td>
+                    <td>Puede tener varias transiciones por símbolo.</td>
+                </tr>
+                <tr>
+                    <td>Determinismo</td>
+                    <td>Siempre hay un único camino posible.</td>
+                    <td>Puede haber varios caminos posibles.</td>
+                </tr>
+                <tr>
+                    <td>Transiciones ε</td>
+                    <td>No se permiten.</td>
+                    <td>Pueden existir transiciones vacías.</td>
+                </tr>
+                <tr>
+                    <td>Uso teórico</td>
+                    <td>Más fácil de implementar.</td>
+                    <td>Más flexible para construir desde ER.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>3.6 Conversión de AFND a AFD</h2>
+
+            <p>
+                Aunque los AFND pueden parecer más flexibles, todo AFND puede convertirse
+                en un AFD equivalente. Esto significa que ambos pueden reconocer el mismo
+                lenguaje, aunque el número de estados pueda cambiar.
+            </p>
+
+            <p>
+                La conversión se realiza mediante el método de subconjuntos. En este método,
+                cada estado del AFD representa un conjunto de estados del AFND.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>AFND</div>
+                <span>→</span>
+                <div>Conjuntos de estados</div>
+                <span>→</span>
+                <div>AFD equivalente</div>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Idea principal:</strong>
+                <p>
+                    Si en un AFND desde q0 con el símbolo a se puede llegar a q1 y q2,
+                    entonces en el AFD se crea un estado compuesto {q1, q2}.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.7 Relación entre Expresiones Regulares y Autómatas</h2>
+
+            <p>
+                Las expresiones regulares y los autómatas finitos están estrechamente
+                relacionados. Una expresión regular describe un lenguaje regular, mientras
+                que un autómata finito puede reconocer las cadenas que pertenecen a ese
+                lenguaje.
+            </p>
+
+            <p>
+                Esta relación es especialmente importante en los compiladores, ya que los
+                patrones de tokens pueden definirse mediante expresiones regulares y luego
+                implementarse como autómatas finitos para reconocerlos dentro del código
+                fuente.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Expresión Regular</div>
+                <span>→</span>
+                <div>AFND</div>
+                <span>→</span>
+                <div>AFD</div>
+                <span>→</span>
+                <div>Token reconocido</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.8 Minimización de Estados</h2>
+
+            <p>
+                La minimización de un autómata finito consiste en reducir el número de
+                estados sin modificar el lenguaje que reconoce. Esto permite obtener una
+                versión más simple, eficiente y fácil de implementar.
+            </p>
+
+            <p>
+                Dos estados pueden considerarse equivalentes si, para cualquier cadena de
+                entrada, ambos llevan al mismo resultado de aceptación o rechazo. Al detectar
+                estados equivalentes, estos pueden combinarse.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Importancia:</strong>
+                <p>
+                    Un autómata minimizado permite reducir costos de procesamiento y mejorar
+                    el diseño de analizadores léxicos en compiladores.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.9 Tabla de transición</h2>
+
+            <p>
+                Una tabla de transición es una forma organizada de representar el comportamiento
+                de un autómata. En ella se indican los estados, los símbolos del alfabeto y
+                el estado al que se llega con cada entrada.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Estado</th>
+                    <th>Entrada a</th>
+                    <th>Entrada b</th>
+                </tr>
+                <tr>
+                    <td>q0</td>
+                    <td>q0</td>
+                    <td>q1</td>
+                </tr>
+                <tr>
+                    <td>q1</td>
+                    <td>q0</td>
+                    <td>q1</td>
+                </tr>
+            </table>
+
+            <div class="ejemplo">
+                <strong>Interpretación:</strong>
+                <p>
+                    Si el autómata está en q0 y lee b, pasa al estado q1. Si está en q1
+                    y lee a, regresa a q0.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.10 Aplicaciones de los Autómatas Finitos</h2>
+
+            <p>
+                Los autómatas finitos tienen múltiples aplicaciones dentro de la informática.
+                Se utilizan para validar patrones, diseñar analizadores léxicos, reconocer
+                cadenas, modelar sistemas digitales y controlar procesos simples.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Aplicación</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>Compiladores</td>
+                    <td>Reconocen tokens durante el análisis léxico.</td>
+                </tr>
+                <tr>
+                    <td>Validación de datos</td>
+                    <td>Verifican si una cadena cumple cierto patrón.</td>
+                </tr>
+                <tr>
+                    <td>Sistemas digitales</td>
+                    <td>Modelan circuitos secuenciales.</td>
+                </tr>
+                <tr>
+                    <td>Búsqueda de texto</td>
+                    <td>Reconocen patrones dentro de documentos.</td>
+                </tr>
+                <tr>
+                    <td>Protocolos</td>
+                    <td>Representan estados de comunicación.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>3.11 Caso de estudio: Validador de cadenas</h2>
+
+            <p>
+                Supongamos que se desea aceptar únicamente cadenas formadas por a y b que
+                terminen en b. El autómata inicia en q0. Cada vez que lee una b pasa a q1,
+                y si la cadena termina en q1, se acepta.
+            </p>
+
+            <div class="codigo">
+                Alfabeto: Σ = {a, b}<br>
+                Lenguaje: cadenas que terminan en b<br>
+                Estado inicial: q0<br>
+                Estado final: q1
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad:</strong>
+                <p>
+                    Indica si las siguientes cadenas son aceptadas o rechazadas:
+                    ab, aba, b, aaab, aaaa.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>3.12 Actividades de aprendizaje</h2>
+
+            <div class="actividad">
+                <strong>Actividad 1:</strong>
+                <p>Diseña un AFD que acepte cadenas binarias que terminen en 1.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 2:</strong>
+                <p>Explica con tus palabras la diferencia entre un AFD y un AFND.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 3:</strong>
+                <p>Construye una tabla de transición para un autómata con tres estados.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 4:</strong>
+                <p>Investiga un ejemplo real donde se utilicen autómatas finitos.</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>Conclusión de la unidad</h2>
+
+            <p>
+                Los autómatas finitos son una herramienta esencial para comprender el
+                reconocimiento de lenguajes regulares. Gracias a ellos es posible modelar
+                procesos simples, validar cadenas y construir analizadores léxicos.
+            </p>
+
+            <p>
+                Su relación con las expresiones regulares permite conectar la teoría con
+                aplicaciones reales como compiladores, validadores de formularios, motores
+                de búsqueda y procesamiento de texto. Además, conceptos como la conversión
+                de AFND a AFD y la minimización de estados son fundamentales para diseñar
+                sistemas más eficientes.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>Bibliografía recomendada</h2>
+            <p>
+                Hopcroft, J. E., Motwani, R. y Ullman, J. D. Introducción a la Teoría de
+                Autómatas, Lenguajes y Computación.
+            </p>
+            <p>
+                Aho, A. V., Lam, M. S., Sethi, R. y Ullman, J. D. Compilers: Principles,
+                Techniques and Tools.
+            </p>
+        </article>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="unidad2.html" class="boton-secundario">← Unidad anterior</a>
+        <a href="../index.html#temario" class="boton">Regresar al temario</a>
+        <a href="unidad4.html" class="boton-secundario">Siguiente unidad →</a>
+    </div>
+
+</main>
+
+</body>
+</html>

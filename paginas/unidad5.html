@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 5 - Análisis Sintáctico</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="paginas/biblioteca.html">Biblioteca</a>
+        
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Unidad 5: Análisis Sintáctico</h1>
+        <p>
+            En esta unidad se estudia la fase del compilador encargada de verificar
+            la estructura gramatical del código fuente. Se abordan gramáticas,
+            árboles de derivación, formas normales de Chomsky, conjuntos FIRST y FOLLOW,
+            diagramas de sintaxis y matrices predictivas.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Objetivo de la unidad</h2>
+        <p>
+            Comprender cómo el análisis sintáctico permite comprobar si una secuencia
+            de tokens cumple con las reglas gramaticales de un lenguaje de programación,
+            utilizando gramáticas formales, árboles de derivación y tablas predictivas.
+        </p>
+    </section>
+
+    <section class="contenedor-temas">
+
+        <article class="tema">
+            <h2>5.1 ¿Qué es el análisis sintáctico?</h2>
+
+            <p>
+                El análisis sintáctico es una fase del compilador que recibe como entrada
+                la secuencia de tokens generada por el analizador léxico. Su función principal
+                es verificar que dichos tokens estén organizados de acuerdo con las reglas
+                gramaticales del lenguaje.
+            </p>
+
+            <p>
+                Mientras el análisis léxico se enfoca en reconocer palabras, símbolos y números,
+                el análisis sintáctico revisa la estructura completa de las instrucciones.
+                Por ejemplo, puede detectar si falta un punto y coma, un paréntesis o si una
+                expresión está mal formada.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Código fuente</div>
+                <span>→</span>
+                <div>Tokens</div>
+                <span>→</span>
+                <div>Analizador sintáctico</div>
+                <span>→</span>
+                <div>Árbol sintáctico</div>
+            </div>
+
+            <div class="dato-importante">
+                <strong>Dato importante:</strong>
+                <p>
+                    El análisis sintáctico no revisa todavía el significado profundo de una
+                    instrucción; solo verifica que su estructura sea correcta según la gramática.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>5.2 Gramáticas formales</h2>
+
+            <p>
+                Una gramática formal es un conjunto de reglas que permiten generar cadenas
+                válidas dentro de un lenguaje. En compiladores, las gramáticas se utilizan
+                para describir la estructura de instrucciones, expresiones, declaraciones,
+                ciclos, condiciones y bloques de código.
+            </p>
+
+            <p>
+                Una gramática se representa como:
+            </p>
+
+            <div class="codigo">
+                G = (V, T, P, S)<br><br>
+                V = conjunto de variables o no terminales<br>
+                T = conjunto de símbolos terminales<br>
+                P = conjunto de producciones<br>
+                S = símbolo inicial
+            </div>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Función</th>
+                    <th>Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>No terminal</td>
+                    <td>Representa categorías sintácticas.</td>
+                    <td>E, T, F</td>
+                </tr>
+                <tr>
+                    <td>Terminal</td>
+                    <td>Símbolo que aparece en la cadena final.</td>
+                    <td>id, +, *</td>
+                </tr>
+                <tr>
+                    <td>Producción</td>
+                    <td>Regla de sustitución.</td>
+                    <td>E → E + T</td>
+                </tr>
+                <tr>
+                    <td>Símbolo inicial</td>
+                    <td>Punto de partida de la derivación.</td>
+                    <td>E</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>5.3 Árboles de derivación</h2>
+
+            <p>
+                Un árbol de derivación representa gráficamente cómo una cadena se obtiene
+                a partir del símbolo inicial de una gramática. La raíz del árbol es el símbolo
+                inicial, los nodos internos son símbolos no terminales y las hojas corresponden
+                a símbolos terminales.
+            </p>
+
+            <div class="arbol-sintactico">
+                <div class="nodo raiz">E</div>
+                <div class="nivel">
+                    <div class="nodo">E</div>
+                    <div class="nodo operador">+</div>
+                    <div class="nodo">T</div>
+                </div>
+                <div class="nivel">
+                    <div class="nodo terminal">id</div>
+                    <div class="nodo terminal">id</div>
+                </div>
+            </div>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>
+                    Para la expresión <b>id + id</b>, el árbol muestra que la expresión
+                    se deriva desde el símbolo inicial <b>E</b> mediante producciones
+                    gramaticales.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>5.4 Derivación izquierda y derivación derecha</h2>
+
+            <p>
+                En una derivación izquierda se reemplaza primero el no terminal que aparece
+                más a la izquierda. En una derivación derecha se reemplaza primero el no terminal
+                que aparece más a la derecha.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Derivación izquierda</td>
+                    <td>Se expande primero el no terminal más a la izquierda.</td>
+                    <td>E ⇒ E + T ⇒ id + T ⇒ id + id</td>
+                </tr>
+                <tr>
+                    <td>Derivación derecha</td>
+                    <td>Se expande primero el no terminal más a la derecha.</td>
+                    <td>E ⇒ E + T ⇒ E + id ⇒ id + id</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>5.5 Ambigüedad en gramáticas</h2>
+
+            <p>
+                Una gramática es ambigua cuando una misma cadena puede tener más de un
+                árbol de derivación o más de una derivación válida. La ambigüedad es un
+                problema importante en compiladores, ya que puede generar interpretaciones
+                diferentes de una misma instrucción.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Ejemplo de ambigüedad:</strong>
+                <p>
+                    La expresión <b>id + id * id</b> puede interpretarse de diferentes formas
+                    si la gramática no define correctamente la prioridad de operadores.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>5.6 Formas Normales de Chomsky</h2>
+
+            <p>
+                La Forma Normal de Chomsky es una forma especial de representar gramáticas
+                libres de contexto. En esta forma, las producciones se restringen a estructuras
+                específicas, lo que facilita algunos algoritmos de análisis sintáctico.
+            </p>
+
+            <div class="codigo">
+                A → BC<br>
+                A → a
+            </div>
+
+            <p>
+                Donde A, B y C son no terminales, y a es un símbolo terminal.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>5.7 Diagramas de sintaxis</h2>
+
+            <p>
+                Los diagramas de sintaxis son representaciones visuales de reglas gramaticales.
+                Ayudan a entender qué estructura debe seguir una cadena para ser válida.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Expresión</div>
+                <span>→</span>
+                <div>Término</div>
+                <span>→</span>
+                <div>Operador</div>
+                <span>→</span>
+                <div>Término</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>5.8 Conjuntos FIRST y FOLLOW</h2>
+
+            <p>
+                Los conjuntos FIRST y FOLLOW son herramientas esenciales para construir
+                analizadores sintácticos predictivos. FIRST indica con qué símbolos terminales
+                puede comenzar una cadena derivada de un no terminal. FOLLOW indica qué símbolos
+                pueden aparecer inmediatamente después de un no terminal.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>No terminal</th>
+                    <th>FIRST</th>
+                    <th>FOLLOW</th>
+                </tr>
+                <tr>
+                    <td>E</td>
+                    <td>{ id }</td>
+                    <td>{ $, ) }</td>
+                </tr>
+                <tr>
+                    <td>T</td>
+                    <td>{ id }</td>
+                    <td>{ +, $, ) }</td>
+                </tr>
+                <tr>
+                    <td>F</td>
+                    <td>{ id, ( }</td>
+                    <td>{ *, +, $, ) }</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>5.9 Matriz predictiva</h2>
+
+            <p>
+                La matriz predictiva se utiliza en analizadores LL(1). Permite decidir qué
+                producción aplicar de acuerdo con el no terminal actual y el símbolo de entrada.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>No terminal</th>
+                    <th>id</th>
+                    <th>+</th>
+                    <th>*</th>
+                    <th>$</th>
+                </tr>
+                <tr>
+                    <td>E</td>
+                    <td>E → T</td>
+                    <td>Error</td>
+                    <td>Error</td>
+                    <td>Error</td>
+                </tr>
+                <tr>
+                    <td>T</td>
+                    <td>T → F</td>
+                    <td>Error</td>
+                    <td>Error</td>
+                    <td>Error</td>
+                </tr>
+                <tr>
+                    <td>F</td>
+                    <td>F → id</td>
+                    <td>Error</td>
+                    <td>Error</td>
+                    <td>Error</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>5.10 Caso práctico: análisis de una expresión</h2>
+
+            <p>
+                Consideremos la expresión:
+            </p>
+
+            <div class="codigo">
+                id + id
+            </div>
+
+            <p>
+                Una gramática simple para generar esta expresión puede ser:
+            </p>
+
+            <div class="codigo">
+                E → E + T<br>
+                E → T<br>
+                T → id
+            </div>
+
+            <p>
+                El analizador sintáctico revisa que los tokens estén colocados en un orden
+                permitido por la gramática. Si la cadena puede derivarse desde el símbolo inicial,
+                entonces la expresión es sintácticamente válida.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>5.11 Errores sintácticos</h2>
+
+            <p>
+                Un error sintáctico ocurre cuando los tokens están escritos en un orden que
+                no cumple las reglas gramaticales del lenguaje.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Error</th>
+                    <th>Ejemplo</th>
+                    <th>Explicación</th>
+                </tr>
+                <tr>
+                    <td>Falta punto y coma</td>
+                    <td>int edad = 20</td>
+                    <td>La instrucción no termina correctamente.</td>
+                </tr>
+                <tr>
+                    <td>Paréntesis incompleto</td>
+                    <td>if (x > 5 {</td>
+                    <td>Falta cerrar el paréntesis.</td>
+                </tr>
+                <tr>
+                    <td>Operador mal colocado</td>
+                    <td>id + * id</td>
+                    <td>La expresión no respeta la estructura gramatical.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>5.12 Actividades de aprendizaje</h2>
+
+            <div class="actividad">
+                <strong>Actividad 1:</strong>
+                <p>Construye un árbol de derivación para la expresión <b>id + id * id</b>.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 2:</strong>
+                <p>Explica la diferencia entre análisis léxico y análisis sintáctico.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 3:</strong>
+                <p>Investiga qué significa que una gramática sea ambigua.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 4:</strong>
+                <p>Elabora una tabla FIRST y FOLLOW para una gramática sencilla.</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>Conclusión de la unidad</h2>
+
+            <p>
+                El análisis sintáctico es una fase esencial del proceso de compilación,
+                ya que permite verificar si la secuencia de tokens generada por el analizador
+                léxico cumple con la estructura gramatical del lenguaje.
+            </p>
+
+            <p>
+                Las gramáticas, árboles de derivación, conjuntos FIRST y FOLLOW, diagramas
+                de sintaxis y matrices predictivas permiten representar y analizar la estructura
+                de los programas. Gracias a estos elementos, los compiladores pueden detectar
+                errores sintácticos y organizar correctamente las instrucciones antes de pasar
+                a fases posteriores.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>Bibliografía recomendada</h2>
+            <p>
+                Aho, A. V., Lam, M. S., Sethi, R. y Ullman, J. D. Compilers: Principles,
+                Techniques and Tools.
+            </p>
+            <p>
+                Hopcroft, J. E., Motwani, R. y Ullman, J. D. Introducción a la Teoría de
+                Autómatas, Lenguajes y Computación.
+            </p>
+        </article>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="unidad4.html" class="boton-secundario">← Unidad anterior</a>
+        <a href="../index.html#temario" class="boton">Regresar al temario</a>
+        <a href="unidad6.html" class="boton-secundario">Siguiente unidad →</a>
+    </div>
+
+</main>
+
+</body>
+</html>

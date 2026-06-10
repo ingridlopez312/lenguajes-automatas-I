@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad 6 - Máquina de Turing</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="logo-contenedor">
+        <img src="../img/logo-tesh.png" alt="Logo TESH" class="logo-img">
+        <div class="logo-texto">
+            <h2>LA</h2>
+            <p>Lenguajes y Autómatas I</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="../index.html#temario">Temario</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="paginas/biblioteca.html">Biblioteca</a>
+        
+    </nav>
+</header>
+
+<main class="contenido-unidad">
+
+    <section class="portada-unidad">
+        <h1>Unidad 6: Máquinas de Turing</h1>
+        <p>
+            En esta unidad se estudia la Máquina de Turing como uno de los modelos
+            matemáticos más importantes de la computación. Se analiza su definición formal,
+            componentes, funcionamiento, construcción modular, lenguajes aceptados y su
+            relación con los límites de lo computable.
+        </p>
+    </section>
+
+    <section class="resumen-unidad">
+        <h2>Objetivo de la unidad</h2>
+        <p>
+            Comprender la Máquina de Turing como un modelo teórico de cómputo capaz de
+            representar algoritmos, reconociendo sus componentes, funcionamiento y relevancia
+            dentro de la teoría de lenguajes formales y la computación moderna.
+        </p>
+    </section>
+
+    <section class="contenedor-temas">
+
+        <article class="tema">
+            <h2>6.1 ¿Qué es una Máquina de Turing?</h2>
+
+            <p>
+                Una Máquina de Turing es un modelo matemático propuesto por Alan Turing en
+                1936 para describir de manera formal el concepto de algoritmo. Aunque no es
+                una computadora física, representa de forma abstracta cómo una máquina puede
+                leer información, modificarla y tomar decisiones mediante reglas definidas.
+            </p>
+
+            <p>
+                Este modelo es considerado fundamental porque permite estudiar qué problemas
+                pueden ser resueltos por una computadora y cuáles no. La Máquina de Turing
+                ayuda a comprender los límites de la computación y es una base teórica para
+                los lenguajes de programación, compiladores, inteligencia artificial y teoría
+                de la complejidad.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Dato importante:</strong>
+                <p>
+                    Aunque una Máquina de Turing parece sencilla, puede simular cualquier
+                    algoritmo que pueda ejecutarse en una computadora moderna.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>6.2 Definición formal</h2>
+
+            <p>
+                Formalmente, una Máquina de Turing se define mediante una tupla que describe
+                sus estados, alfabetos, función de transición, estado inicial, símbolo blanco
+                y estados finales.
+            </p>
+
+            <div class="codigo">
+                M = (Q, Σ, Γ, δ, q0, B, F)<br><br>
+                Q = conjunto finito de estados<br>
+                Σ = alfabeto de entrada<br>
+                Γ = alfabeto de la cinta<br>
+                δ = función de transición<br>
+                q0 = estado inicial<br>
+                B = símbolo blanco<br>
+                F = conjunto de estados finales
+            </div>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+                <tr>
+                    <td>Q</td>
+                    <td>Estados posibles de la máquina.</td>
+                    <td>{q0, q1, qf}</td>
+                </tr>
+                <tr>
+                    <td>Σ</td>
+                    <td>Símbolos que forman la entrada.</td>
+                    <td>{0, 1}</td>
+                </tr>
+                <tr>
+                    <td>Γ</td>
+                    <td>Símbolos que pueden aparecer en la cinta.</td>
+                    <td>{0, 1, B}</td>
+                </tr>
+                <tr>
+                    <td>δ</td>
+                    <td>Reglas de transición.</td>
+                    <td>δ(q0,1)=(q1,0,R)</td>
+                </tr>
+                <tr>
+                    <td>F</td>
+                    <td>Estados de aceptación.</td>
+                    <td>{qf}</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>6.3 Componentes principales</h2>
+
+            <p>
+                La Máquina de Turing está compuesta por una cinta, un cabezal, un conjunto
+                de estados y una función de transición. La cinta funciona como memoria,
+                el cabezal lee y escribe símbolos, y los estados indican la situación actual
+                de la máquina.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Cinta</div>
+                <span>→</span>
+                <div>Cabezal</div>
+                <span>→</span>
+                <div>Estado</div>
+                <span>→</span>
+                <div>Transición</div>
+                <span>→</span>
+                <div>Resultado</div>
+            </div>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Componente</th>
+                    <th>Función</th>
+                </tr>
+                <tr>
+                    <td>Cinta</td>
+                    <td>Almacena símbolos de entrada y resultados intermedios.</td>
+                </tr>
+                <tr>
+                    <td>Cabezal</td>
+                    <td>Lee, escribe y se mueve sobre la cinta.</td>
+                </tr>
+                <tr>
+                    <td>Estados</td>
+                    <td>Representan el comportamiento actual de la máquina.</td>
+                </tr>
+                <tr>
+                    <td>Función de transición</td>
+                    <td>Indica qué hacer según el estado y símbolo leído.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>6.4 Funcionamiento paso a paso</h2>
+
+            <p>
+                En cada paso, la Máquina de Turing realiza una acción dependiendo del estado
+                actual y del símbolo leído en la cinta. La acción puede consistir en escribir
+                un nuevo símbolo, moverse hacia la izquierda o derecha, y cambiar de estado.
+            </p>
+
+            <div class="codigo">
+                δ(q0, 1) = (q1, 0, R)<br><br>
+                Si la máquina está en q0 y lee 1:<br>
+                1. Cambia a q1<br>
+                2. Escribe 0<br>
+                3. Se mueve a la derecha
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>6.5 Simulación visual de cinta</h2>
+
+            <p>
+                Presiona los botones para mover el cabezal de la máquina sobre la cinta.
+                Esta simulación muestra de forma sencilla cómo el cabezal puede desplazarse
+                entre celdas.
+            </p>
+
+            <div class="turing-contenedor">
+                <div class="cinta">
+                    <span class="celda" id="c0">1</span>
+                    <span class="celda" id="c1">0</span>
+                    <span class="celda activa" id="c2">1</span>
+                    <span class="celda" id="c3">1</span>
+                    <span class="celda" id="c4">0</span>
+                </div>
+
+                <div class="estado-turing">
+                    Estado actual: <strong id="estadoActual">q0</strong>
+                </div>
+
+                <div class="botones-unidad">
+                    <button onclick="moverIzquierda()">← Mover izquierda</button>
+                    <button onclick="moverDerecha()">Mover derecha →</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>6.6 Construcción modular de una Máquina de Turing</h2>
+
+            <p>
+                La construcción modular consiste en dividir una Máquina de Turing en módulos
+                más pequeños. Cada módulo realiza una tarea específica, como buscar un símbolo,
+                copiar información, recorrer la cinta o verificar una condición.
+            </p>
+
+            <p>
+                Este enfoque facilita el diseño de máquinas más complejas, ya que permite
+                construir soluciones por partes y reutilizar módulos.
+            </p>
+
+            <div class="diagrama-proceso">
+                <div>Módulo 1: Buscar</div>
+                <span>→</span>
+                <div>Módulo 2: Escribir</div>
+                <span>→</span>
+                <div>Módulo 3: Verificar</div>
+                <span>→</span>
+                <div>Aceptar/Rechazar</div>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>6.7 Lenguajes aceptados por una Máquina de Turing</h2>
+
+            <p>
+                Un lenguaje es aceptado por una Máquina de Turing si existe una máquina que,
+                para cada cadena perteneciente al lenguaje, se detiene en un estado de aceptación.
+                Si la cadena no pertenece al lenguaje, la máquina puede rechazarla o no detenerse.
+            </p>
+
+            <div class="ejemplo">
+                <strong>Ejemplo:</strong>
+                <p>
+                    Una Máquina de Turing puede diseñarse para aceptar cadenas binarias con
+                    la misma cantidad de 0 y 1, verificando símbolo por símbolo en la cinta.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>6.8 Máquina de Turing Universal</h2>
+
+            <p>
+                La Máquina de Turing Universal es un modelo capaz de simular cualquier otra
+                Máquina de Turing. Esta idea es fundamental porque anticipa el concepto de
+                computadora programable: una sola máquina capaz de ejecutar diferentes programas.
+            </p>
+
+            <p>
+                En términos modernos, una computadora funciona de manera similar: recibe un
+                programa, interpreta instrucciones y procesa datos. Por eso, la Máquina de
+                Turing Universal es considerada una base teórica de la computación actual.
+            </p>
+
+            <div class="dato-importante">
+                <strong>Importancia histórica:</strong>
+                <p>
+                    Alan Turing propuso este modelo antes de que existieran las computadoras
+                    modernas, pero sus ideas influyeron profundamente en su desarrollo.
+                </p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>6.9 Problemas decidibles e indecidibles</h2>
+
+            <p>
+                Un problema decidible es aquel para el cual existe un algoritmo que siempre
+                termina y ofrece una respuesta correcta. En cambio, un problema indecidible
+                no puede resolverse mediante un algoritmo general para todos los casos.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Tipo de problema</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>Decidible</td>
+                    <td>Existe un algoritmo que siempre llega a una respuesta.</td>
+                </tr>
+                <tr>
+                    <td>Indecidible</td>
+                    <td>No existe un algoritmo general que lo resuelva para todos los casos.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>6.10 Aplicaciones e importancia</h2>
+
+            <p>
+                Aunque la Máquina de Turing es un modelo teórico, su importancia es enorme
+                en computación. Se utiliza para estudiar los límites de los algoritmos,
+                la complejidad computacional, los lenguajes formales y la teoría de la
+                computabilidad.
+            </p>
+
+            <table class="tabla-token">
+                <tr>
+                    <th>Área</th>
+                    <th>Relación con la Máquina de Turing</th>
+                </tr>
+                <tr>
+                    <td>Lenguajes formales</td>
+                    <td>Reconocimiento de lenguajes recursivamente enumerables.</td>
+                </tr>
+                <tr>
+                    <td>Compiladores</td>
+                    <td>Base teórica del procesamiento de programas.</td>
+                </tr>
+                <tr>
+                    <td>Inteligencia Artificial</td>
+                    <td>Estudio formal de algoritmos y razonamiento computacional.</td>
+                </tr>
+                <tr>
+                    <td>Complejidad computacional</td>
+                    <td>Análisis de qué tan difícil es resolver un problema.</td>
+                </tr>
+            </table>
+        </article>
+
+        <article class="tema">
+            <h2>6.11 Actividades de aprendizaje</h2>
+
+            <div class="actividad">
+                <strong>Actividad 1:</strong>
+                <p>Explica con tus palabras qué representa la cinta en una Máquina de Turing.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 2:</strong>
+                <p>Investiga quién fue Alan Turing y cuál fue su aporte a la computación.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 3:</strong>
+                <p>Describe la diferencia entre un problema decidible y uno indecidible.</p>
+            </div>
+
+            <div class="actividad">
+                <strong>Actividad 4:</strong>
+                <p>Elabora un diagrama sencillo de una Máquina de Turing con cinta y cabezal.</p>
+            </div>
+        </article>
+
+        <article class="tema">
+            <h2>Conclusión de la unidad</h2>
+
+            <p>
+                La Máquina de Turing es uno de los modelos más importantes de la computación
+                teórica. Aunque se trata de una representación abstracta, permite comprender
+                el concepto de algoritmo, los límites de la computación y la naturaleza de
+                los lenguajes aceptados por una máquina.
+            </p>
+
+            <p>
+                Su estudio es fundamental en Lenguajes y Autómatas I, ya que permite conectar
+                los conceptos de lenguajes formales, autómatas, gramáticas y computabilidad.
+                Además, su influencia histórica y teórica demuestra que muchas ideas actuales
+                de la informática nacen de modelos matemáticos aparentemente simples.
+            </p>
+        </article>
+
+        <article class="tema">
+            <h2>Bibliografía recomendada</h2>
+            <p>
+                Hopcroft, J. E., Motwani, R. y Ullman, J. D. Introducción a la Teoría de
+                Autómatas, Lenguajes y Computación.
+            </p>
+            <p>
+                Sipser, M. Introduction to the Theory of Computation.
+            </p>
+        </article>
+
+    </section>
+
+    <div class="botones-unidad">
+        <a href="unidad5.html" class="boton-secundario">← Unidad anterior</a>
+        <a href="../index.html#temario" class="boton">Regresar al temario</a>
+    </div>
+
+</main>
+
+<script src="../js/script.js"></script>
+
+</body>
+</html>
